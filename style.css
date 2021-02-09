@@ -1,0 +1,10 @@
+h1 {
+    font-size: 1.8em;
+}
+
+label,
+input,
+button {
+    display: block;
+    margin-bottom: .5em;
+}
