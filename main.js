@@ -1,5 +1,5 @@
-const UNLOCKED_ACHIEVEMENTS_LIST = document.querySelector('#unlocked-achievements');
-const LOCKED_ACHIEVEMENTS_LIST = document.querySelector('#locked-achievements');
+const UNLOCKED_ACHIEVEMENTS_LIST = document.querySelector('#unlocked-achievements ul');
+const LOCKED_ACHIEVEMENTS_LIST = document.querySelector('#locked-achievements ul');
 
 const KF2_APP_ID = '232090';
 const STEAM_ID_64 = 76561198014652060;
@@ -41,8 +41,8 @@ Promise.all([fetch(GAME_SCHEMA_URL).then((response) => response.json()), fetch(P
 
         if (achievement.isUnlocked) {
             UNLOCKED_ACHIEVEMENTS_LIST.appendChild(li);
-            return
+        } else {
+            LOCKED_ACHIEVEMENTS_LIST.appendChild(li);
         }
-        LOCKED_ACHIEVEMENTS_LIST.appendChild(li);
     });
 });
