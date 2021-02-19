@@ -1,5 +1,6 @@
 const LOCKED_ACHIEVEMENTS_LIST = document.querySelector('#locked-achievements ul');
 const UNLOCKED_ACHIEVEMENTS_LIST = document.querySelector('#unlocked-achievements ul');
+const GAMEMODE_SELECT = document.querySelector('#gamemode');
 const DIFFICULTY_SELECT = document.querySelector('#difficulty');
 const APPLY_FILTERS_BUTTON = document.querySelector('#apply-filters');
 
@@ -29,6 +30,26 @@ Promise.all([fetch(GAME_SCHEMA_URL).then((response) => response.json()), fetch(P
     }
     
     achievements.forEach(achievement => {
+        // If achievement description contains game mode, add gamemode property
+        if (achievement.description.toLowerCase().includes('survival')) {
+            achievement.gamemode = 'survival';
+        } else if (achievement.description.toLowerCase().includes('objective')) {
+            achievement.gamemode = 'objective';
+        } else if (achievement.description.toLowerCase().includes('endless')) {
+            achievement.gamemode = 'endless';
+        }
+
+        // If achievement description contains difficulty, add difficulty property
+        if (achievement.description.toLowerCase().includes('normal')) {
+            achievement.difficulty = 'normal';
+        } else if (achievement.description.toLowerCase().includes('hard')) {
+            achievement.difficulty = 'hard';
+        } else if (achievement.description.toLowerCase().includes('suicidal')) {
+            achievement.difficulty = 'suicidal';
+        } else if (achievement.description.toLowerCase().includes('hell on earth')) {
+            achievement.difficulty = 'hell on earth';
+        }
+
         if (achievement.isUnlocked) {
             UNLOCKED_ACHIEVEMENTS_LIST.appendChild(listItemFromAchievement(achievement));
         } else {
@@ -42,7 +63,19 @@ APPLY_FILTERS_BUTTON.onclick = function() {
     LOCKED_ACHIEVEMENTS_LIST.innerHTML = '';
     
     LOCKED_ACHIEVEMENTS.forEach(achievement => {
-        if (achievement.description.toLowerCase().includes(DIFFICULTY_SELECT.value.toLowerCase())) {
+        if (GAMEMODE_SELECT.value != 'Any' && DIFFICULTY_SELECT.value != 'Any') {
+            if (achievement.gamemode == GAMEMODE_SELECT.value.toLowerCase() && achievement.difficulty == DIFFICULTY_SELECT.value.toLowerCase()) {
+                LOCKED_ACHIEVEMENTS_LIST.appendChild(listItemFromAchievement(achievement));
+            }
+        } else if (GAMEMODE_SELECT.value != 'Any' && DIFFICULTY_SELECT.value == 'Any') {
+            if (achievement.gamemode == GAMEMODE_SELECT.value.toLowerCase()) {
+                LOCKED_ACHIEVEMENTS_LIST.appendChild(listItemFromAchievement(achievement));
+            }
+        } else if (GAMEMODE_SELECT.value == 'Any' && DIFFICULTY_SELECT.value != 'Any') {
+            if (achievement.difficulty == DIFFICULTY_SELECT.value.toLowerCase()) {
+                LOCKED_ACHIEVEMENTS_LIST.appendChild(listItemFromAchievement(achievement));
+            }
+        } else {
             LOCKED_ACHIEVEMENTS_LIST.appendChild(listItemFromAchievement(achievement));
         }
     });
