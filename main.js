@@ -1,8 +1,7 @@
-const SUGGESTED_ACHIEVEMENTS_LIST = document.querySelector('#suggested-achievements ul');
-const UNLOCKED_ACHIEVEMENTS_LIST = document.querySelector('#unlocked-achievements ul');
 const LOCKED_ACHIEVEMENTS_LIST = document.querySelector('#locked-achievements ul');
+const UNLOCKED_ACHIEVEMENTS_LIST = document.querySelector('#unlocked-achievements ul');
 const DIFFICULTY_SELECT = document.querySelector('#difficulty');
-const GET_SUGGESTIONS_BUTTON = document.querySelector('#get-suggestions');
+const APPLY_FILTERS_BUTTON = document.querySelector('#apply-filters');
 
 const KF2_APP_ID = '232090';
 const STEAM_ID_64 = 76561198014652060;
@@ -39,12 +38,12 @@ Promise.all([fetch(GAME_SCHEMA_URL).then((response) => response.json()), fetch(P
     });
 });
 
-GET_SUGGESTIONS_BUTTON.onclick = function() {
-    SUGGESTED_ACHIEVEMENTS_LIST.innerHTML = '';
+APPLY_FILTERS_BUTTON.onclick = function() {
+    LOCKED_ACHIEVEMENTS_LIST.innerHTML = '';
     
     LOCKED_ACHIEVEMENTS.forEach(achievement => {
         if (achievement.description.toLowerCase().includes(DIFFICULTY_SELECT.value.toLowerCase())) {
-            SUGGESTED_ACHIEVEMENTS_LIST.appendChild(listItemFromAchievement(achievement));
+            LOCKED_ACHIEVEMENTS_LIST.appendChild(listItemFromAchievement(achievement));
         }
     });
 }
