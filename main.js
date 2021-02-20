@@ -6,7 +6,7 @@ const APPLY_FILTERS_BUTTON = document.querySelector('#apply-filters');
 
 const KF2_APP_ID = '232090';
 const STEAM_ID_64 = 76561198014652060;
-const STEAM_WEB_API_KEY = '7C7214D616E1EADF7E1BA5267334EB6F';
+const STEAM_WEB_API_KEY = '225F191E000A2874BE746FE028470C5C';
 
 const GAME_SCHEMA_URL = `https://api.steampowered.com/ISteamUserStats/GetSchemaForGame/v2/?key=${STEAM_WEB_API_KEY}&appid=${KF2_APP_ID}`;
 const PLAYER_ACHIEVEMENTS_URL = `https://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v1/?key=${STEAM_WEB_API_KEY}&steamid=${STEAM_ID_64}&appid=${KF2_APP_ID}`;
